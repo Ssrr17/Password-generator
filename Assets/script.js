@@ -15,11 +15,11 @@
 var charAll = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*+=-_`~?><}{";
 var alphaNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 var alphaSym = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*+=-_`~?><}{";
-var uppCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var lowCaseNumSym = "abcdefghijklmnopqrstuvwxyz";
+var uppLowCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
 var uppCaseNum = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 var lowCaseNum = "abcdefghijklmnopqrstuvwxyz0123456789";
-var uppCaseSym = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*+=-_`~?><}{";
+
 var lowCaseSym = "abcdefghijklmnopqrstuvwxyz!@#$%^&*+=-_`~?><}{";
 
 
@@ -45,8 +45,28 @@ var passType = function () {
     pass = pass + alphaNum.charAt(Math.floor(Math.random() * Math.floor(alphaNum.length - 1)));
    }
 else if(charUppType == true && charNumType == false && charSpecType == false){
-  pass = pass + alphaNum.charAt(Math.floor(Math.random() * Math.floor(alphaNum.length - 1)));
+  pass = pass + uppLowCase.charAt(Math.floor(Math.random() * Math.floor(uppLowCase.length - 1)));
 } 
+else if(charUppType == false && charNumType == true && charSpecType == false){
+  pass = pass + lowCaseNum.charAt(Math.floor(Math.random() * Math.floor(lowCaseNum.length - 1)));
+} 
+else if(charUppType == false && charNumType == false && charSpecType == true){
+  pass = pass + lowCaseSym.charAt(Math.floor(Math.random() * Math.floor(lowCaseSym.length - 1)));
+} 
+else if(charUppType == true && charNumType == false && charSpecType == true){
+  pass = pass + alphaSym.charAt(Math.floor(Math.random() * Math.floor(alphaSym.length - 1)));
+}
+else if(charUppType == true && charNumType == true && charSpecType == false){
+  pass = pass + lowCaseSym.charAt(Math.floor(Math.random() * Math.floor(lowCaseSym.length - 1)));
+}
+else {
+  alert("You need to select at least one chartacter type")
+  return passType();
+
+}
+
+alert ("You new password is " + pass);
+
 
 console.log(pass);
 }
@@ -54,7 +74,7 @@ console.log(pass);
 
 
 
-var passTerms = function () {
+var generatePassword = function () {
 
   passLength = parseInt(prompt("Please enter your desired number characters"));
 
@@ -69,37 +89,21 @@ var passTerms = function () {
 }
 
 
-passTerms()
 
-//else {
-  //alert("You need to select at least one chartacter type")
-  //return passType();
-
-//for (i = 0; i <= passLength; i++) {
-//pass = pass + charAll.charAt(Math.floor(Math.random() * Math.floor(charAll.length - 1)));passTerms();
-
-// console.log(pass);
-
-
-
-//generatePassword()
+generatePassword()
 //Get password criteria from user
-
-
-
-
-
 // et references to the #generate element
-//var generateBtn = document.querySelector("#generate");
+var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-//function writePassword() {
-////var password = generatePassword();
-//var passwordText = document.querySelector("#password");
+function writePassword() {
+var password = generatePassword();
+var passwordText = document.querySelector("#password");
+passwordText.value = pass;
 
-//passwordText.value = password;
+}
+
+ //Add event listener to generate button
+ generateBtn.addEventListener("click", writePassword);
 
 
-
-// Add event listener to generate button
-//generateBtn.addEventListener("click", writePassword);
